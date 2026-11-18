@@ -1,0 +1,9 @@
+USE ticketing_system;
+CREATE TABLE IF NOT EXISTS departments (
+ id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+ name VARCHAR(100) NOT NULL UNIQUE,
+ code VARCHAR(80) NULL UNIQUE,
+ is_active TINYINT(1) NOT NULL DEFAULT 1,
+ created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+INSERT IGNORE INTO departments(name,code) VALUES ('系统管理','system'),('研发部','rd'),('运维部','ops');

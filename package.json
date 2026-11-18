@@ -1,0 +1,33 @@
+{
+  "name": "flowdesk-ticketing",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "web:dev": "vite",
+    "web:build": "vite build"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.6",
+    "@vitejs/plugin-react": "^4.3.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.468.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.11.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.6.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "tailwindcss": "^3.4.17",
+    "vite": "^6.0.5"
+  }
+}

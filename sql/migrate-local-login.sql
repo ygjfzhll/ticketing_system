@@ -1,0 +1,10 @@
+USE `ticketing_system`;
+SET @has_username = (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='users' AND COLUMN_NAME='username');
+SET @sql = IF(@has_username=0, 'ALTER TABLE users ADD COLUMN username VARCHAR(80) NULL', 'SELECT 1'); PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+SET @has_hash = (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='users' AND COLUMN_NAME='password_hash');
+SET @sql = IF(@has_hash=0, 'ALTER TABLE users ADD COLUMN password_hash VARCHAR(128) NULL', 'SELECT 1'); PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+SET @has_salt = (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='users' AND COLUMN_NAME='password_salt');
+SET @sql = IF(@has_salt=0, 'ALTER TABLE users ADD COLUMN password_salt VARCHAR(80) NULL', 'SELECT 1'); PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+SET @has_username_index = (SELECT COUNT(*) FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='users' AND COLUMN_NAME='username');
+SET @sql = IF(@has_username_index=0, 'ALTER TABLE users ADD UNIQUE KEY uq_users_username (username)', 'SELECT 1'); PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+UPDATE users SET username='admin', password_hash='7c6d5db6bf2a78a00e6791d6c7cd4f231abb4acc9fd5f4ba039a0aac09aa4905d1a97532f9f846fcd6e93319653f412b63719f5ecc0744006d40a26c2cf8ae1c', password_salt='flowdesk-salt' WHERE feishu_open_id='local-admin';
