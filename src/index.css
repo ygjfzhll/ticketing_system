@@ -90,3 +90,16 @@
 .flow-current-handler{margin:8px 4px 0;color:#334155;font-size:13px}
 
 .readonly-field{background:#f8fafc;color:#334155;cursor:default}
+
+.link-button{border:0;background:transparent;padding:0;color:#172033;font:inherit;font-weight:650;cursor:pointer;text-align:left}.link-button:hover{color:#1d4ed8}
+
+.role-code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;color:#334155;background:#f8fafc;border:1px solid #e5eaf1;border-radius:6px;padding:2px 6px}
+.role-modal{width:min(480px,100%)}
+.role-modal textarea{min-height:88px}
+
+.role-modal .modal-form.single{display:flex;flex-direction:column;gap:14px;padding:20px 24px 18px}
+.role-modal .modal-form input,.role-modal .modal-form textarea{width:100%;box-sizing:border-box;border:1px solid #dbe2ea;border-radius:8px;padding:11px 12px;font:inherit;color:#172033;background:#fff;outline:none}
+.role-modal .modal-form textarea{min-height:96px;resize:vertical}
+.role-modal .modal-form input:focus,.role-modal .modal-form textarea:focus{border-color:#60a5fa;box-shadow:0 0 0 3px #dbeafe}
+.role-modal .modal-actions{display:flex;justify-content:flex-end;align-items:center;gap:10px}
+.role-modal .modal-actions button{height:38px;min-width:88px;padding:0 16px;border-radius:8px}
