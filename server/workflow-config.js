@@ -15,6 +15,7 @@ export async function ensureWorkflow() {
     await pool.query("ALTER TABLE workflow_steps ADD COLUMN " + column).catch(error => { if (error.code !== "ER_DUP_FIELDNAME") throw error; });
   }
   await pool.query("UPDATE workflow_steps SET fail_code='EXECUTE' WHERE code='VERIFY' AND (fail_code IS NULL OR fail_code='')");
+  await pool.query("UPDATE workflow_steps SET fail_code='CREATE' WHERE code IN ('SUBMITTER_LEADER','EXEC_LEADER','EXECUTE')");
   const [linked] = await pool.query("SELECT code FROM workflow_steps WHERE next_code IS NOT NULL LIMIT 1");
   if (!linked.length) {
     const [rows] = await pool.query("SELECT code FROM workflow_steps ORDER BY sort_order, id");
@@ -98,7 +99,7 @@ export function nextStatus(steps, status, action) {
   const current = steps.find(step => step.status === status && step.action === base);
   if (!current) reject("当前节点不允许执行该操作");
   if (fail) {
-    const backToSubmitter = !current.fail_code && ["submitter_approve","approve"].includes(current.action);
+    const backToSubmitter = ["submitter_approve","approve","complete"].includes(current.action);
     if (!current.fail_code && !backToSubmitter) reject("这个节点没有配置不通过后的去向");
     if (backToSubmitter || current.fail_code === "CREATE") return "RETURNED_TO_SUBMITTER";
     const targetStep = steps.find(step => step.code === current.fail_code);
